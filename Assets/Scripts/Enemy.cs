@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public enum State
+    public enum State : int
     {
         None = -1, // 사용전
         Ready = 0, // 준비완료
@@ -26,6 +26,10 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     float currentSpeed;
 
+    Vector3 currentVelocity;
+    float startMoveTime = 0.0f;
+    float battleStartTime = 0.0f;
+
     void Start()
     {
         
@@ -33,35 +37,89 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Appear(new Vector3(7.0f, transform.position.y, transform.position.z));
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Disappear(new Vector3(-15.0f, 0.0f, 0.0f));
+        }
+
+        switch (CurrentState)
+        {
+            case State.None:
+            case State.Ready:
+                break;
+            case State.Dead:
+                break;
+            case State.Appear:
+            case State.Disappear:
+                UpdateSpeed();
+                UpdateMove();
+                break;
+            case State.Battle:
+                UpdateBattle();
+                break;
+        }
     }
 
     void UpdateSpeed()
     {
-
+        currentSpeed = Mathf.Lerp(currentSpeed, MaxSpeed, (Time.time - startMoveTime) / MaxSpeedTime);
     }
 
     void UpdateMove()
     {
+        float distance = Vector3.Distance(TargetPosition, transform.position);
+        if(distance == 0)
+        {
+            Arrived();
+            return;
+        }
 
+        currentVelocity = (TargetPosition - transform.position).normalized * currentSpeed;
+
+        transform.position = Vector3.SmoothDamp(transform.position, TargetPosition, ref currentVelocity, distance / currentSpeed, MaxSpeed);
     }
 
     void Arrived()
     {
-
+        currentSpeed = 0.0f;
+        if(CurrentState == State.Appear)
+        {
+            CurrentState = State.Battle;
+            battleStartTime = Time.time;
+        }else //if(CurrentState == State.Disappear)
+        {
+            CurrentState = State.None;
+        }
     }
 
     public void Appear(Vector3 targetPos)
     {
         TargetPosition = targetPos;
         currentSpeed = MaxSpeed;
+
         CurrentState = State.Appear;
+        startMoveTime = Time.time;
     }
 
     void Disappear(Vector3 targetPos)
     {
         TargetPosition = targetPos;
-        currentSpeed = MaxSpeed;
+        currentSpeed = 0.0f;
+
         CurrentState = State.Disappear;
+        startMoveTime = Time.time;
+    }
+
+    void UpdateBattle()
+    {
+        if(Time.time - battleStartTime > 3.0f)
+        {
+            Disappear(new Vector3(-15.0f, transform.position.y, transform.position.z));
+        }
     }
 }
