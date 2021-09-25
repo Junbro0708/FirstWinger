@@ -37,11 +37,6 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Appear(new Vector3(7.0f, transform.position.y, transform.position.z));
-        }
-
         if (Input.GetKeyDown(KeyCode.K))
         {
             Disappear(new Vector3(-15.0f, 0.0f, 0.0f));
