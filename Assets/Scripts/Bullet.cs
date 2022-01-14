@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
     float Speed = 0.0f;
 
     bool NeedMove = false;
+    bool hitted = false;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class Bullet : MonoBehaviour
         if (!NeedMove) return;
 
         Vector3 moveVector = MoveDirection.normalized * Speed * Time.deltaTime;
+        AdjustMove(moveVector);
         transform.position += moveVector;
     }
 
@@ -46,5 +48,40 @@ public class Bullet : MonoBehaviour
         Speed = speed;
 
         NeedMove = true;
+    }
+
+    Vector3 AdjustMove(Vector3 moveVector)
+    {
+        RaycastHit hitInfo;
+        if(Physics.Linecast(transform.position, transform.position + moveVector, out hitInfo))
+        {
+            moveVector = hitInfo.point - transform.position;
+            OnBulletCollision(hitInfo.collider);
+        }
+        return moveVector;
+    }
+
+    void OnBulletCollision(Collider collider)
+    {
+        if (hitted) return;
+
+        Collider myCollider = GetComponentInChildren<Collider>();
+        myCollider.enabled = false;
+
+        hitted = true;
+        NeedMove = false;
+
+        if(ownerSide == OwnerSide.Player)
+        {
+            Enemy enemy = collider.GetComponentInParent<Enemy>();
+        }
+        else
+        {
+            Player player = collider.GetComponentInParent<Player>();
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        OnBulletCollision(other);
     }
 }
