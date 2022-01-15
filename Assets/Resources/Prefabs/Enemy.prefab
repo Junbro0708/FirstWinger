@@ -31,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 4283224271423625835}
   - {fileID: 3650728078167688458}
+  - {fileID: 3862703554485488163}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49,6 +50,10 @@ MonoBehaviour:
   CurrentState: -1
   TargetPosition: {x: 0, y: 0, z: 0}
   currentSpeed: 0
+  FireTransform: {fileID: 3862703554485488163}
+  Bullet: {fileID: 1045569618029826786, guid: 3aed0cc6faf92e545973317014a5c2dd, type: 3}
+  bulletSpeed: 10
+  fireRemainCount: 1
 --- !u!54 &7336818282860137735
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -65,6 +70,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &3477608898489983021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3862703554485488163}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3862703554485488163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3477608898489983021}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.648, y: -0.002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5760387129169861420}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4285342736828999273
 GameObject:
   m_ObjectHideFlags: 0

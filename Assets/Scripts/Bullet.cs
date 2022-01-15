@@ -10,6 +10,8 @@ public enum OwnerSide : int
 
 public class Bullet : MonoBehaviour
 {
+    const float lifeTime = 15.0f;
+
     OwnerSide ownerSide = OwnerSide.Player;
 
     [SerializeField]
@@ -19,15 +21,20 @@ public class Bullet : MonoBehaviour
     float Speed = 0.0f;
 
     bool NeedMove = false;
+
+    float firedTime;
     bool hitted = false;
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
+        if (ProcessDisappearCondition())
+            return;
+
         UpdateMove();
     }
 
@@ -48,15 +55,17 @@ public class Bullet : MonoBehaviour
         Speed = speed;
 
         NeedMove = true;
+        firedTime = Time.time;
     }
 
     Vector3 AdjustMove(Vector3 moveVector)
     {
         RaycastHit hitInfo;
-        if(Physics.Linecast(transform.position, transform.position + moveVector, out hitInfo))
+        if (Physics.Linecast(transform.position, transform.position + moveVector, out hitInfo))
         {
             moveVector = hitInfo.point - transform.position;
             OnBulletCollision(hitInfo.collider);
+            Debug.Log(hitInfo.collider.name);
         }
         return moveVector;
     }
@@ -71,7 +80,7 @@ public class Bullet : MonoBehaviour
         hitted = true;
         NeedMove = false;
 
-        if(ownerSide == OwnerSide.Player)
+        if (ownerSide == OwnerSide.Player)
         {
             Enemy enemy = collider.GetComponentInParent<Enemy>();
         }
@@ -83,5 +92,25 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         OnBulletCollision(other);
+    }
+
+    bool ProcessDisappearCondition()
+    {
+        if (transform.position.x > lifeTime || transform.position.x < -lifeTime || transform.position.y > lifeTime || transform.position.y < -lifeTime)
+        {
+            Disappear();
+            return true;
+        }
+        else if(Time.time - firedTime > lifeTime)
+        {
+            Disappear();
+            return true;
+        }
+        return false;
+    }
+
+    void Disappear()
+    {
+        Destroy(gameObject);
     }
 }

@@ -28,7 +28,20 @@ public class Enemy : MonoBehaviour
 
     Vector3 currentVelocity;
     float startMoveTime = 0.0f;
-    float battleStartTime = 0.0f;
+
+    [SerializeField]
+    Transform FireTransform;
+
+    [SerializeField]
+    GameObject Bullet;
+
+    [SerializeField]
+    float bulletSpeed = 1f;
+
+    float lastBattleUpdateTime = 0.0f;
+
+    [SerializeField]
+    int fireRemainCount = 1;
 
     void Start()
     {
@@ -85,7 +98,7 @@ public class Enemy : MonoBehaviour
         if(CurrentState == State.Appear)
         {
             CurrentState = State.Battle;
-            battleStartTime = Time.time;
+            lastBattleUpdateTime = Time.time;
         }else //if(CurrentState == State.Disappear)
         {
             CurrentState = State.None;
@@ -112,9 +125,18 @@ public class Enemy : MonoBehaviour
 
     void UpdateBattle()
     {
-        if(Time.time - battleStartTime > 3.0f)
+        if(Time.time - lastBattleUpdateTime > 1.0f)
         {
-            Disappear(new Vector3(-15.0f, transform.position.y, transform.position.z));
+            if(fireRemainCount > 0)
+            {
+                Fire();
+                fireRemainCount--;
+            }
+            else
+            {
+                Disappear(new Vector3(-15.0f, transform.position.y, transform.position.z));
+            }
+            lastBattleUpdateTime = Time.time;
         }
     }
 
@@ -128,5 +150,13 @@ public class Enemy : MonoBehaviour
     public void OnCrash(Player player)
     {
         Debug.Log("OnCrash player = " + player);
+    }
+
+    public void Fire()
+    {
+        GameObject go = Instantiate(Bullet);
+        Bullet bullet = go.GetComponent<Bullet>();
+
+        bullet.Fire(OwnerSide.Enemy, FireTransform.position, -FireTransform.right, bulletSpeed);
     }
 }

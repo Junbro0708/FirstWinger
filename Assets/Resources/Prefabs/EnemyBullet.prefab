@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6510539678803922212}
   - component: {fileID: 7586689472435947240}
-  m_Layer: 9
-  m_Name: Bullet
+  m_Layer: 8
+  m_Name: EnemyBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb0c45aa762e4b71ae95dbe465a4bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveDirection: {x: 0, y: 0, z: 0}
+  MoveDirection: {x: -1, y: 0, z: 0}
   Speed: 0
 --- !u!1 &1965778516991553476
 GameObject:
@@ -57,8 +57,8 @@ GameObject:
   - component: {fileID: 5126671925549124670}
   - component: {fileID: 2304071285719869076}
   - component: {fileID: 1264230599629237819}
-  - component: {fileID: 8041882529365699820}
-  m_Layer: 9
+  - component: {fileID: 63048216813927530}
+  m_Layer: 8
   m_Name: BulletModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,13 +72,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965778516991553476}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1755, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.35, y: 0.06, z: 0.06}
   m_Children: []
   m_Father: {fileID: 6510539678803922212}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &2304071285719869076
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -106,7 +106,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f727e3b19724bdf4181054187be22f20, type: 2}
+  - {fileID: 2100000, guid: 2a69982d53d6a724ebac88db6d04a9d0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,7 +128,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8041882529365699820
+--- !u!136 &63048216813927530
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,9 +136,9 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965778516991553476}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 0.62897176
+  m_Height: 0.6331053
   m_Direction: 0
-  m_Center: {x: 0.18551493, y: 0.00043070567, z: 0}
+  m_Center: {x: 0.18344733, y: 0, z: 0}
