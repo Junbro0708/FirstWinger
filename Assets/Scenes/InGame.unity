@@ -1308,6 +1308,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4860321237907819831, guid: a17ae5468568f4382831a108cdab9caa,
         type: 3}
+      propertyPath: damage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4860321237907819831, guid: a17ae5468568f4382831a108cdab9caa,
+        type: 3}
+      propertyPath: currentHP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4860321237907819831, guid: a17ae5468568f4382831a108cdab9caa,
+        type: 3}
       propertyPath: boxCollider
       value: 
       objectReference: {fileID: 2630811297954716794}

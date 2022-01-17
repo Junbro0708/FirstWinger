@@ -14,17 +14,6 @@ public class SystemManager : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogError("System Manager Error! Singletone Error");
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-    }
-
     [SerializeField]
     Player player;
 
@@ -34,5 +23,17 @@ public class SystemManager : MonoBehaviour
         {
             return player;
         }
+    }
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogError("System Manager Error! Singletone Error");
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }

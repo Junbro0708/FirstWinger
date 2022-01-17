@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Actor
 {
     public enum State : int
     {
@@ -43,12 +43,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     int fireRemainCount = 1;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
+    protected override void UpdateActor()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
@@ -144,7 +139,7 @@ public class Enemy : MonoBehaviour
     {
         Player player = other.GetComponentInParent<Player>();
         if (!player)
-            player.OnCrash(this);
+            player.OnCrash(this, CrashDamage);
     }
 
     public void OnCrash(Player player)
@@ -157,6 +152,6 @@ public class Enemy : MonoBehaviour
         GameObject go = Instantiate(Bullet);
         Bullet bullet = go.GetComponent<Bullet>();
 
-        bullet.Fire(OwnerSide.Enemy, FireTransform.position, -FireTransform.right, bulletSpeed);
+        bullet.Fire(OwnerSide.Enemy, FireTransform.position, -FireTransform.right, bulletSpeed, damage);
     }
 }

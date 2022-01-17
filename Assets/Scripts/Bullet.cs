@@ -25,6 +25,9 @@ public class Bullet : MonoBehaviour
     float firedTime;
     bool hitted = false;
 
+    [SerializeField]
+    int Damage = 1;
+
     void Start()
     {
 
@@ -47,12 +50,13 @@ public class Bullet : MonoBehaviour
         transform.position += moveVector;
     }
 
-    public void Fire(OwnerSide FireOwner, Vector3 firePosition, Vector3 direction, float speed)
+    public void Fire(OwnerSide FireOwner, Vector3 firePosition, Vector3 direction, float speed, int damage)
     {
         ownerSide = FireOwner;
         transform.position = firePosition;
         MoveDirection = direction;
         Speed = speed;
+        Damage = damage;
 
         NeedMove = true;
         firedTime = Time.time;
@@ -72,23 +76,33 @@ public class Bullet : MonoBehaviour
 
     void OnBulletCollision(Collider collider)
     {
-        if (hitted) return;
+        if (hitted) 
+            return;
+
+        if (ownerSide == OwnerSide.Player)
+        {
+            Enemy enemy = collider.GetComponentInParent<Enemy>();
+            if (enemy.IsDead)
+                return;
+
+            enemy.OnBulletHitted(Damage);
+        }
+        else
+        {
+            Player player = collider.GetComponentInParent<Player>();
+            if(player.IsDead)
+                return;
+
+            player.OnBulletHitted(Damage);
+        }
 
         Collider myCollider = GetComponentInChildren<Collider>();
         myCollider.enabled = false;
 
         hitted = true;
         NeedMove = false;
-
-        if (ownerSide == OwnerSide.Player)
-        {
-            Enemy enemy = collider.GetComponentInParent<Enemy>();
-        }
-        else
-        {
-            Player player = collider.GetComponentInParent<Player>();
-        }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         OnBulletCollision(other);
