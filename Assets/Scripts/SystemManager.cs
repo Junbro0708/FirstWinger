@@ -21,7 +21,22 @@ public class SystemManager : MonoBehaviour
     {
         get
         {
+            if (!player)
+            {
+                Debug.LogError("Main Player is not setted!");
+            }
+
             return player;
+        }
+    }
+
+    GamePointAccumulator gamePointAccumulator = new GamePointAccumulator();
+
+    public GamePointAccumulator GamePointAccumulator
+    {
+        get 
+        { 
+            return gamePointAccumulator; 
         }
     }
 
