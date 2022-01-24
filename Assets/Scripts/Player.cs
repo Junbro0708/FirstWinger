@@ -72,14 +72,16 @@ public class Player : Actor
     private void OnTriggerEnter(Collider other)
     {
         Enemy enemy = other.GetComponentInParent<Enemy>();
-        if (!enemy)
-            enemy.OnCrash(this);
+        if (enemy)
+        {
+            if (!enemy.IsDead)
+                enemy.OnCrash(this, CrashDamage);
+        }
     }
 
-    public void OnCrash(Enemy enemy, int damage)
+    public override void OnCrash(Actor attacker, int damage)
     {
-        Debug.Log("OnCrash player = " + enemy);
-        OnCrash(damage);
+        base.OnCrash(attacker, damage);
     }
 
     public void Fire()

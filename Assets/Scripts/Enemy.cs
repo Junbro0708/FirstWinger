@@ -43,6 +43,8 @@ public class Enemy : Actor
     [SerializeField]
     int fireRemainCount = 1;
 
+    int gamePoint = 1;
+
     protected override void UpdateActor()
     {
         if (Input.GetKeyDown(KeyCode.K))
@@ -153,5 +155,14 @@ public class Enemy : Actor
         Bullet bullet = go.GetComponent<Bullet>();
 
         bullet.Fire(OwnerSide.Enemy, FireTransform.position, -FireTransform.right, bulletSpeed, damage);
+    }
+
+    protected override void OnDead(Actor killer)
+    {
+        base.OnDead(killer);
+
+        SystemManager.Instance.GamePointAccumulator.Acuumulate(gamePoint);
+
+        CurrentState = State.Dead;
     }
 }

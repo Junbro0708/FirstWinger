@@ -85,7 +85,7 @@ public class Bullet : MonoBehaviour
             if (enemy.IsDead)
                 return;
 
-            enemy.OnBulletHitted(Damage);
+            enemy.OnBulletHitted(enemy, Damage);
         }
         else
         {
@@ -93,7 +93,7 @@ public class Bullet : MonoBehaviour
             if(player.IsDead)
                 return;
 
-            player.OnBulletHitted(Damage);
+            player.OnBulletHitted(player, Damage);
         }
 
         Collider myCollider = GetComponentInChildren<Collider>();
