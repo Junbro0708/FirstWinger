@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerFire : MonoBehaviour
+{
+    [SerializeField]
+    private GameObject bulletFactory;
+
+    [SerializeField]
+    private GameObject firePosition;
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GameObject bullet = Instantiate(bulletFactory);
+            bullet.transform.position = firePosition.transform.position;
+        }
+    }
+}
