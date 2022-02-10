@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4717559363042948132}
   - component: {fileID: 4692060955624917878}
   - component: {fileID: 4700523781219572102}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Flight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1347249634}
   - component: {fileID: 1347249635}
   - component: {fileID: 1347249632}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
