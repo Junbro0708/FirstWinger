@@ -44,15 +44,7 @@ public class Enemy_ : MonoBehaviour
         GameObject explosion = Instantiate(explosionFactory);
         explosion.transform.position = collision.transform.position;
 
-        sm.currentScore++;
-        sm.currentTextUI.text = "현재 점수 : " + sm.currentScore;
-
-        if(sm.currentScore > sm.bestScore)
-        {
-            sm.bestScore = sm.currentScore;
-            sm.bestScoreUI.text = "최고 점수 : " + sm.bestScore;
-            PlayerPrefs.SetInt("Best Score", sm.bestScore);
-        }
+        sm.SetScore(sm.GetScore() + 1);
 
         Destroy(gameObject);
         Destroy(collision.gameObject);
