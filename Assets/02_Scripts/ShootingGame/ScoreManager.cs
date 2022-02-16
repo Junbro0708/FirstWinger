@@ -11,6 +11,7 @@ public class ScoreManager : MonoBehaviour
     public Text bestScoreUI;
     private int bestScore;
 
+
     private void Start()
     {
         bestScore = PlayerPrefs.GetInt("Best Score", 0);
