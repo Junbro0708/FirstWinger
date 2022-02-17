@@ -38,13 +38,10 @@ public class Enemy_ : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject smObject = GameObject.Find("ScoreManager");
-        ScoreManager sm = smObject.GetComponent<ScoreManager>();
+        ScoreManager.Instance.Score++;
 
         GameObject explosion = Instantiate(explosionFactory);
         explosion.transform.position = collision.transform.position;
-
-        sm.SetScore(sm.GetScore() + 1);
 
         Destroy(gameObject);
         Destroy(collision.gameObject);
