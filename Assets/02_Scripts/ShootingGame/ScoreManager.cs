@@ -13,7 +13,7 @@ public class ScoreManager : MonoBehaviour
 
     public static ScoreManager Instance = null;
 
-    public int Score
+    public int Score // 프로퍼티 get set
     {
         get
         {
