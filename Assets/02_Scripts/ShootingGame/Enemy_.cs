@@ -43,7 +43,14 @@ public class Enemy_ : MonoBehaviour
         GameObject explosion = Instantiate(explosionFactory);
         explosion.transform.position = collision.transform.position;
 
+        if (collision.gameObject.name.Contains("Bullet"))
+        {
+            collision.gameObject.SetActive(false);
+        }
+        else
+        {
+            Destroy(collision.gameObject);
+        }
         Destroy(gameObject);
-        Destroy(collision.gameObject);
     }
 }

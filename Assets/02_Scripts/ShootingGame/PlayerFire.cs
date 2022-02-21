@@ -10,12 +10,37 @@ public class PlayerFire : MonoBehaviour
     [SerializeField]
     private GameObject firePosition;
 
+    [SerializeField]
+    private int poolSize = 10;
+
+    GameObject[] bulletObjectPool;
+
+    private void Start()
+    {
+        bulletObjectPool = new GameObject[poolSize];
+
+        for(int i = 0; i < poolSize; i++)
+        {
+            GameObject bullet = Instantiate(bulletFactory);
+            bulletObjectPool[i] = bullet;
+            bullet.SetActive(false);
+        }
+    }
+
     private void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            GameObject bullet = Instantiate(bulletFactory);
-            bullet.transform.position = firePosition.transform.position;
+            for(int i = 0; i < poolSize; i++)
+            {
+                GameObject bullet = bulletObjectPool[i];
+                if(bullet.activeSelf == false)
+                {
+                    bullet.SetActive(true);
+                    bullet.transform.position = firePosition.transform.position;
+                    break;
+                }
+            }
         }
     }
 }
