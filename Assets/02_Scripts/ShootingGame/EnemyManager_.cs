@@ -7,15 +7,29 @@ public class EnemyManager_ : MonoBehaviour
     [SerializeField]
     private GameObject EnemyFactory;
 
+    [SerializeField]
+    private int poolSize = 10;
+
+    GameObject[] enemyObjectPool;
+    public Transform[] spawnPoints;
+
     float currentTime;
     
-    float minTime = 1f;
-    float maxTime = 5f;
+    float minTime = 0.5f;
+    float maxTime = 1.5f;
     float createTime;
 
     private void Start()
     {
-        createTime = UnityEngine.Random.Range(minTime, maxTime);
+        createTime = Random.Range(minTime, maxTime);
+
+        enemyObjectPool = new GameObject[poolSize];
+        for(int i = 0; i < poolSize; ++i)
+        {
+            GameObject enemy = Instantiate(EnemyFactory);
+            enemyObjectPool[i] = enemy;
+            enemy.SetActive(false);
+        }
     }
     private void Update()
     {
@@ -23,11 +37,20 @@ public class EnemyManager_ : MonoBehaviour
 
         if(currentTime > createTime)
         {
-            GameObject enemy = Instantiate(EnemyFactory);
-            enemy.transform.position = transform.position;
-            currentTime = 0f;
+            for(int i = 0; i < poolSize; ++i)
+            {
+                GameObject enemy = enemyObjectPool[i];
+                if(enemy.activeSelf == false)
+                {
+                    enemy.SetActive(true);
 
-            createTime = UnityEngine.Random.Range(minTime, maxTime);
+                    int index = Random.Range(0, spawnPoints.Length);
+                    enemy.transform.position = spawnPoints[index].position;
+                    break;
+                }
+            }
+            createTime = Random.Range(minTime, maxTime);
+            currentTime = 0f;
         }
     }
 }

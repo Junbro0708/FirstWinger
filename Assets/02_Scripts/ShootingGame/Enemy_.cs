@@ -51,6 +51,6 @@ public class Enemy_ : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
