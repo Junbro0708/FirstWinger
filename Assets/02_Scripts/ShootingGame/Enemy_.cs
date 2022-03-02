@@ -46,6 +46,9 @@ public class Enemy_ : MonoBehaviour
         if (collision.gameObject.name.Contains("Bullet"))
         {
             collision.gameObject.SetActive(false);
+
+            PlayerFire player = GameObject.Find("Player").GetComponent<PlayerFire>();
+            player.bulletObjectPool.Add(collision.gameObject);
         }
         else
         {

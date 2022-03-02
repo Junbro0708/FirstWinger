@@ -13,16 +13,16 @@ public class PlayerFire : MonoBehaviour
     [SerializeField]
     private int poolSize = 10;
 
-    GameObject[] bulletObjectPool;
+    public List<GameObject> bulletObjectPool;
 
     private void Start()
     {
-        bulletObjectPool = new GameObject[poolSize];
+        bulletObjectPool = new List<GameObject>();
 
         for(int i = 0; i < poolSize; i++)
         {
             GameObject bullet = Instantiate(bulletFactory);
-            bulletObjectPool[i] = bullet;
+            bulletObjectPool.Add(bullet);
             bullet.SetActive(false);
         }
     }
@@ -31,15 +31,13 @@ public class PlayerFire : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            for(int i = 0; i < poolSize; i++)
+            if(bulletObjectPool.Count > 0)
             {
-                GameObject bullet = bulletObjectPool[i];
-                if(bullet.activeSelf == false)
-                {
-                    bullet.SetActive(true);
-                    bullet.transform.position = firePosition.transform.position;
-                    break;
-                }
+                GameObject bullet = bulletObjectPool[0];
+                bullet.SetActive(true);
+                bulletObjectPool.Remove(bullet);
+
+                bullet.transform.position = firePosition.transform.position;
             }
         }
     }
