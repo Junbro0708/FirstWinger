@@ -55,5 +55,8 @@ public class Enemy_ : MonoBehaviour
             Destroy(collision.gameObject);
         }
         gameObject.SetActive(false);
+
+        EnemyManager_ manager = GameObject.Find("EnemyManager").GetComponent<EnemyManager_>();
+        manager.enemyObjectPool.Add(gameObject);
     }
 }

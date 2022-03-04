@@ -15,6 +15,10 @@ public class DestroyZone : MonoBehaviour
             {
                 PlayerFire player = GameObject.Find("Player").GetComponent<PlayerFire>();
                 player.bulletObjectPool.Add(other.gameObject);
+            }else if (other.gameObject.name.Contains("Enemy"))
+            {
+                EnemyManager_ manager = GameObject.Find("EnemyManager").GetComponent<EnemyManager_>();
+                manager.enemyObjectPool.Add(other.gameObject);
             }
         }
     }
